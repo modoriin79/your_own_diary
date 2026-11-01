@@ -12,14 +12,14 @@ concurrency:
   cancel-in-progress: true
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - run: mkdir public && cp index.html style.css app.js public/
-      - uses: actions/configure-pages@v5
+      - run: mkdir -p public && cp index.html style.css app.js public/
+      # Plain HTML needs no Pages metadata or framework configuration.
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public
